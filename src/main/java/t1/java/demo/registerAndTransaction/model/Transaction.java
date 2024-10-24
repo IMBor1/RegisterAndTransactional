@@ -21,7 +21,7 @@ public class Transaction {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    private BigDecimal amount;
+    private Double amount;
 
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;

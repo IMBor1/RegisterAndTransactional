@@ -5,5 +5,5 @@ import t1.java.demo.registerAndTransaction.model.Client;
 import java.util.List;
 
 public interface ClientService {
-    void registerClients(List<Client> clients);
+    Client registerClients(Client client);
 }

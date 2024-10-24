@@ -17,10 +17,9 @@ public class ClientServiceImpl implements ClientService {
     private final KafkaClientProducer kafkaClientProducer;
 
     @Override
-    public void registerClients(List<Client> clients) {
-        repository.saveAll(clients)
-                .stream()
-                .map(Client::getId)
-                .forEach(kafkaClientProducer::send);
+    public Client registerClients(Client client) {
+        kafkaClientProducer.send(client.getId());
+        return repository.save(client);
+
     }
 }

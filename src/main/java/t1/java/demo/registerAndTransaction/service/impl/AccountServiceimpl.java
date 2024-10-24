@@ -12,28 +12,34 @@ import t1.java.demo.registerAndTransaction.service.AccountService;
 
 @AllArgsConstructor
 @Service
-    public class AccountServiceimpl implements AccountService {
-        
-        private AccountRepository accountRepository;
+public class AccountServiceimpl implements AccountService {
 
-        @Override
-        public Account registerAccount(Account account) {
-            return accountRepository.save(account);
-        }
+    private AccountRepository accountRepository;
 
-        @Override
-        public void blockAccount(Long accountId) {
-            Account account = accountRepository.findById(accountId).orElseThrow();
-            account.setStatus(String.valueOf(TransactionType.CANCEL));
-            accountRepository.save(account);
-        }
-
-        @Override
-        public void unblockAccount(Long accountId) {
-            Account account = accountRepository.findById(accountId).orElseThrow();
-            account.setStatus(String.valueOf(AccountType.DEBIT));
-            accountRepository.save(account);
-        }
+    @Override
+    public Account registerAccount(Account account) {
+        return accountRepository.save(account);
     }
+
+    @Override
+    public void blockAccount(Long accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        account.setStatus(String.valueOf(TransactionType.CANCEL));
+        accountRepository.save(account);
+    }
+
+    @Override
+    public void unblockAccount(Long accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        if (account.getAccountType().equals(AccountType.CREDIT)
+                && account.getBalance() < account.getBalance()) {
+            account.setStatus(String.valueOf(TransactionType.CANCEL));
+        }
+        account.setStatus(String.valueOf(AccountType.DEBIT));
+        accountRepository.save(account);
+    }
+
+}
+
 
 

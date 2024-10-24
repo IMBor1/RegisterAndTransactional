@@ -24,7 +24,7 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
-    private BigDecimal balance;
+    private Double balance;
 
     private String status;
 }

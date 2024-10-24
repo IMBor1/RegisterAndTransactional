@@ -15,7 +15,7 @@ public class KafkaClientProducer {
 
 
 
-    //TODO:
+
     public void send(Long id) {
         try {
             template.sendDefault(UUID.randomUUID().toString(), new ClientDto()).get();
