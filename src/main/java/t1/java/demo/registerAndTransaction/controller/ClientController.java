@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import t1.java.demo.registerAndTransaction.model.Client;
 import t1.java.demo.registerAndTransaction.service.ClientService;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/clients")
@@ -19,8 +21,9 @@ public class ClientController {
     private final ClientService clientService;
 
     @PostMapping("/register")
-    public ResponseEntity<Client> registerClient(@RequestBody Client client) {
-        return ResponseEntity.ok(clientService.registerClients(client));
+    public ResponseEntity registerClient(@RequestBody List<Client> clients) {
+        clientService.registerClients(clients);
+        return ResponseEntity.ok().build();
     }
 }
 
